@@ -1,3 +1,9 @@
+param (
+	[ValidateSet("Black", "Cyan", "DarkCyan", "DarkGreen", "DarkRed", "Gray", "Magenta", "White",
+"Blue", "DarkBlue", "DarkGray", "DarkMagenta", "DarkYellow", "Green", "Red", "Yellow")]
+	[string]$Color
+)
+
 $Colors = "Black", "Cyan", "DarkCyan", "DarkGreen", "DarkRed", "Gray", "Magenta", "White",
 "Blue", "DarkBlue", "DarkGray", "DarkMagenta", "DarkYellow", "Green", "Red", "Yellow"
 
@@ -12,7 +18,7 @@ function Line {
 		$Exp 	= " $( Random-Char )$( Random-Char )"
 		$RandomColor = $Colors | Get-Random
 		$Exp.ToCharArray().ForEach{	
-			Write-Host -ForegroundColor $RandomColor -NoNewline $_
+			Write-Host -ForegroundColor $( if( $Color ) { $Color } else { $RandomColor } ) -NoNewline $_
 			$i++
 			if ( $i -ge $Width ) {
 				break
