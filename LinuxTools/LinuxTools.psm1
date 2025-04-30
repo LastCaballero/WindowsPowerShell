@@ -1,4 +1,7 @@
 function Pager {
+	param (
+		[string[]]$Files
+	)
 	begin {
 		$Lines = [System.Collections.ArrayList]::new()
 		$LinesToDisplay = [System.Console]::WindowHeight - 2
@@ -10,6 +13,7 @@ function Pager {
 	}
 
 	end {
+		$Files | Foreach-Object { $Lines.Add( ( Get-Content $_ ) ) }
 		$i = 0
 		$exit = $false
 		for ( $i -le $Lines.Count ) {
